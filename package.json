@@ -1,0 +1,40 @@
+{
+  "name": "cypress-setup",
+  "displayName": "cypress-setup",
+  "description": "A basic template for initializing a cypress framework",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.79.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "cypress-setup.helloWorld",
+        "title": "Hello World"
+      }
+    ]
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "pnpm run lint",
+    "test": "node ./test/runTest.js",
+    "postinstall": "pnpm install allure-commandline --save-dev"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "20.2.5",
+    "@types/vscode": "^1.79.0",
+    "@vscode/test-electron": "^2.3.2",
+    "allure-commandline": "^2.22.4",
+    "eslint": "^8.41.0",
+    "glob": "^8.1.0",
+    "mocha": "^10.2.0",
+    "typescript": "^5.1.3"
+  }
+}
