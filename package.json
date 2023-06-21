@@ -21,6 +21,7 @@
   },
   "scripts": {
     "lint": "eslint .",
+    "compile": "node ./node_modules/vscode/bin/compile",
     "pretest": "pnpm run lint",
     "test": "node ./test/runTest.js",
     "postinstall": "pnpm install allure-commandline --save-dev"

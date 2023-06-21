@@ -24,6 +24,11 @@ function activate(context) {
 		//terminal.sendText('npm i -g pnpm');
 	 	terminal.sendText('pnpm install cypress cypress-xpath --save-dev ');
 		 terminal.sendText('pnpm install fs ');
+		 const rootPath = vscode.workspace.rootPath;
+		 if (!rootPath) {
+			vscode.window.showErrorMessage('No workspace found. Open a workspace with your Cypress project to generate the Cypress configuration files.');
+			return;
+		  }
 	// 	terminal.sendText('cp cypress.config.js .')
 	// 	terminal.sendText('mkdir -p cypress/support')
 	// 	terminal.sendText('mkdir -p cypress/integration')
@@ -50,10 +55,43 @@ cypress_tests:
       - cypress/screenshots/
       - cypress/videos/
 `;
+const configFileContent=`
+	module.exports = {
+	baseUrl: 'http://localhost:3000',
+	integrationFolder: 'cypress/integration',
+	pluginsFile: 'cypress/plugins/index.js',
+	screenshotsFolder: 'cypress/screenshots',
+	videosFolder: 'cypress/videos',
+	supportFile: 'cypress/support/index.js'
+	// Add other desired Cypress configuration options
+  };`
+  const gitlabCIPath = `/.gitlab-ci.yml`;
+  const wsPath = vscode.workspace.workspaceFolders[0].uri.fsPath; // gets the path of the first workspace folder
+const filePath = vscode.Uri.file(wsPath + gitlabCIPath);
 
-    const gitlabCIPath = `.gitlab-ci.yml`;
 
-    fs.writeFile(gitlabCIPath, gitlabCIContent, (err) => {
+  	const configFile=`${{rootPath}}/cypress.config.js`;
+	const supportFile='e2e.js';
+	const pluginsFile='index.js';
+	  const pluginsIndexPath = `${{rootPath}}/cypress/plugins/e2e.js`;
+	  const supportIndexPath = `${{rootPath}}/cypress/support/index.js`;
+	//   fs.writeFile(pluginsIndexPath, '', (err) => {
+	// 	if (err) {
+	// 	  vscode.window.showErrorMessage(`Failed to generate Cypress plugins index file: ${err.message}`);
+	// 	  return;
+	// 	}
+	// 	vscode.window.showInformationMessage(`Cypress plugins index file generated at ${pluginsIndexPath}`);
+	//   });
+  
+	//   fs.writeFile(supportIndexPath, '', (err) => {
+	// 	if (err) {
+	// 	  vscode.window.showErrorMessage(`Failed to generate Cypress support index file: ${err.message}`);
+	// 	  return;
+	// 	}
+	// 	vscode.window.showInformationMessage(`Cypress support index file generated at ${supportIndexPath}`);
+	//   });
+	
+    fs.writeFile(filePath.toString(), gitlabCIContent, (err)  => {
       if (err) {
         vscode.window.showErrorMessage(`Failed to generate GitLab CI file: ${err.message}`);
       } else {
