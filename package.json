@@ -1,7 +1,7 @@
 {
-  "name": "cypress-setup",
-  "displayName": "cypress-setup",
-  "description": "A basic template for initializing a cypress framework",
+  "name": "cypress-gitlab-allure-framework-generator",
+  "displayName": "cypress-gitlab-allure-framework-generator",
+  "description": "A basic template for initializing a cypress framework with Gitlab CI and allure reporting configured ",
   "version": "1.0.0",
   "publisher": "MuditMaheshwari",
   "engines": {
