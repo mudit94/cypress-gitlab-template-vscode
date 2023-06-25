@@ -31,6 +31,7 @@ Calling out known issues can help limit users opening duplicate issues against y
 
 ### 1.1.2
 - Created the changelog.md
+- Added the how to use guide
 ### 1.1.1
 - Fixed broken image in README.md
 ### 1.1.0
