@@ -61,7 +61,7 @@ cypress_tests:
   stage: test
   script:
     - npm i
-    - npx cypress run --env allure=true
+    - npx cypress run --browser chrome --env allure=true
   artifacts:
     paths:
       - cypress/screenshots/
