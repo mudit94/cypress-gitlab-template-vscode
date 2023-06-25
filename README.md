@@ -21,6 +21,8 @@ Calling out known issues can help limit users opening duplicate issues against y
 
 ## Release Notes
 
+### 1.1.1
+- Fixed broken image in README.md
 ### 1.1.0
 - Added screenshots for showing the plugin in action in the README.md
 ###
