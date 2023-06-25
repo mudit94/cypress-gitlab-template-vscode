@@ -9,6 +9,18 @@ var path = require('path');
 /**
  * @param {vscode.ExtensionContext} context
  */
+function removeFolders(folders) {
+	folders.forEach(folder => {
+	  const folderPath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, folder);
+  
+	  if (fs.existsSync(folderPath)) {
+		fs.rmdirSync(folderPath, { recursive: true });
+		console.log(`Folder '${folder}' removed.`);
+	  } else {
+		console.log(`Folder '${folder}' does not exist.`);
+	  }
+	});
+  }
 function activate(context) {
 
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
@@ -23,8 +35,7 @@ function activate(context) {
 		const terminal = vscode.window.createTerminal('Cypress Installation');
 		terminal.show();
 		terminal.sendText('npm init -y');
-		//const fs = require('fs');
-		
+		removeFolders(['allure-results','allure-report']);
 		terminal.sendText('npm install --save-dev cypress@12.14.0 cypress-xpath @shelex/cypress-allure-plugin mocha-allure-reporter allure-commandline');
 		terminal.sendText('npm install fs');
 
@@ -35,17 +46,8 @@ function activate(context) {
 			return;
 		  }
 		terminal.sendText("npx cypress run --browser chrome --env allure=true,allureResultsPath=allure-results");
-		terminal.sendText("allure generate allure-results --clean -o allure-report");
+		terminal.sendText("npx allure generate allure-results --clean -o allure-report");
     
-		//  terminal.sendText(`mkdir -p`+" "+rootPath+`cypress/{support,plugins,integration}`)
-	// 	terminal.sendText('cp cypress.config.js .')
-	// 	terminal.sendText('mkdir -p cypress/support')
-	// 	terminal.sendText('mkdir -p cypress/integration')
-	// 	terminal.sendText('mkdir -p cypress/plugins')
-	// 	terminal.sendText('touch cypress/integration/test.cy.js')
-	//  	terminal.sendText('touch cypress/support/e2e.js');
-	// 	terminal.sendText('touch cypress.config.js');
-	// // 	// Display a message box to the user
 	
     const gitlabCIContent = `
 image: cypress/browsers:node-18.15.0-chrome-111.0.5563.146-1-ff-111.0.1-edge-111.0.1661.62-1
@@ -115,9 +117,6 @@ video: false,
 });
 `
   const gitlabCIPath = `.gitlab-ci.yml`;
-//  const wsPath = vscode.workspace.workspaceFolders[0].uri.fsPath; // gets the path of the first workspace folder
-//const filePath = vscode.Uri.file(wsPath + gitlabCIPath);
-
 const supportFileContents=`
 import './commands';
 require("cypress-xpath");
@@ -131,24 +130,6 @@ import "@shelex/cypress-allure-plugin";
 	  const pluginsIndexPath = `cypress/plugins/`;
 	  const supportIndexPath = `cypress/support/`;
 	  const testFileIndexPath=`cypress/e2e/`;
-	  
-	  //const commandsFileIndexPath=`cypress/support/`;
-
-	//   fs.writeFile(pluginsIndexPath, '', (err) => {
-	// 	if (err) {
-	// 	  vscode.window.showErrorMessage(`Failed to generate Cypress plugins index file: ${err.message}`);
-	// 	  return;
-	// 	}
-	// 	vscode.window.showInformationMessage(`Cypress plugins index file generated at ${pluginsIndexPath}`);
-	//   });
-  
-	//   fs.writeFile(supportIndexPath, '', (err) => {
-	// 	if (err) {
-	// 	  vscode.window.showErrorMessage(`Failed to generate Cypress support index file: ${err.message}`);
-	// 	  return;
-	// 	}
-	// 	vscode.window.showInformationMessage(`Cypress support index file generated at ${supportIndexPath}`);
-	//   });
 	var pluginsFileContent=`
 	///<reference types="@shelex/cypress-allure-plugin" />
 	const allureWriter = require('@shelex/cypress-allure-plugin/writer');
@@ -167,27 +148,14 @@ import "@shelex/cypress-allure-plugin";
 		  })
 	  })`;
 	const wsedit = new vscode.WorkspaceEdit();
-	  
-	//I also encountered a similar problem. You can also solve your problem by doing the following:
 
-//	var content = rec[rt.fields[field]];
 	var gitlabfilePath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, gitlabCIPath);
 	fs.writeFileSync(gitlabfilePath, gitlabCIContent, 'utf8');
 	
-	// var openPath = vscode.Uri.parse("file:///" + filePath); //A request file path
-	// vscode.workspace.openTextDocument(openPath).then(doc => {
-	//   vscode.window.showTextDocument(doc);
-	// });
-	//const wsedit = new vscode.WorkspaceEdit();
-//const wsPath = vscode.workspace.workspaceFolders[0].uri.fsPath; // gets the path of the first workspace folder
-//const supportFilePath = vscode.Uri.file(wsPath + '/cypress/support/e2e.js');
-//vscode.window.showInformationMessage(supportFilePath.toString());
-//wsedit.createFile(supportFilePath, { ignoreIfExists: true });
 	var configFilePath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, configFile);
 	var supportFileFolder = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, supportIndexPath);
 	var pluginFileFolder = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, pluginsIndexPath);
 	var testFileFolder=path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, testFileIndexPath);
-	//var commandsFolder=path.join(vscode.workspace.rootPath,commandsFileIndexPath);
 	console.log(supportFileFolder);
 	fs.mkdirSync(supportFileFolder,{recursive:true});
 	
@@ -202,39 +170,19 @@ fs.writeFileSync(configFilePath, configFileContent, 'utf8');
   var testFilePath=path.join(testFileFolder,testFile)
 	
 	fs.writeFileSync(supportFilePath,supportFileContents, 'utf8');
-	//var commandsFilePath=path.join(vscode.workspace.rootPath,commandsFolder);
-	
+		
 	fs.writeFileSync(commandsFilePath,'','utf8');
 	fs.writeFileSync(testFilePath,testFileContent,'utf8') 
 
-	// const packageData = fs.readFileSync('package.json', 'utf8');
-	// const packageJson = JSON.parse(packageData);
-	// packageJson.scripts.test = `cypress run --browser chrome --env allure=true`;
-	// fs.writeFileSync('package.json', JSON.stringify(packageJson, null, 2));
 
 	
-	
+	vscode.window.showInformationMessage('Creating the required config files');	
 	vscode.workspace.applyEdit(wsedit);
-vscode.window.showInformationMessage('Created the required config files');
 
-    //fs.writeFile(filePath.toString(), gitlabCIContent,{flag:'w+'}, (err)  => {
-    //   if (err) {
-    //     vscode.window.showErrorMessage(`Failed to generate GitLab CI file: ${err.message}`);
-    //   } else {
-    //     vscode.window.showInformationMessage(`GitLab CI file generated at ${gitlabCIPath}`);
-    //   }
-    // });
-	
+
 
   });
 	context.subscriptions.push(disposable);
-	// exec('pnpm run postinstall', (error, stdout, stderr) => {
-	// 	if (error) {
-	// 	  console.error(`Error running postinstall script: ${error}`);
-	// 	  return;
-	// 	}
-	// 	console.log(`stdout: ${stdout}`);
-	// 	console.error(`stderr: ${stderr}`);
 	
 }
 

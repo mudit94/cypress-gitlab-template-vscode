@@ -4,11 +4,10 @@ This is the README for your extension "cypress-setup". After writing up a brief 
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- Users need to have a VS Code Workspace created in order to be able to make use of this plugin
 
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
+\!\[Cypress CodeLab Generator]\(images/installing.png\)
+\!\[Allure Report]\(images/allure.png\)
 
 > Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
 
@@ -16,16 +15,6 @@ For example if there is an image subfolder under your extension project workspac
 
 If you have any requirements or dependencies, add a section describing those and how to install and configure them.
 
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
 
 ## Known Issues
 
@@ -37,17 +26,13 @@ Users appreciate release notes as you update your extension.
 
 ### 1.0.0
 
-Initial release of ...
+Initial release of Cypress Framework Generator with Allure Reporting & Gitlab Ci
 
-### 1.0.1
+Inspired from the playwright development, I have  created a one click generate template for cypress.
+This template would help initialize a cypress 12.14.0 project with the required files along with allure report generation.
+It also helps in generating .gitlab-ci.yml file for running the tests in gitlab ci 
 
-Fixed issue #.
 
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
 
 ## Working with Markdown
 

@@ -2,7 +2,7 @@
   "name": "cypress-setup",
   "displayName": "cypress-setup",
   "description": "A basic template for initializing a cypress framework",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "engines": {
     "vscode": "^1.79.0"
   },
@@ -24,7 +24,9 @@
     "compile": "node ./node_modules/vscode/bin/compile",
     "pretest": "pnpm run lint",
     "test": "node ./test/runTest.js",
-    "postinstall": "npm install allure-commandline --save-dev"
+    "postinstall": "npm install allure-commandline --save-dev",
+    "vsce": "vsce package"
+
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",
