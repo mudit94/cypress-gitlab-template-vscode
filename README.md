@@ -6,7 +6,7 @@
 - Open the command pallete (Ctrl+Shift+P)
 - Search for Cypress framework initialization with Gitlab CI and Allure setup
 - Click on it
-- Sit back & Relax !. It will automatically generate the configuration files required for cypress, execute sample tests and create   gitlab ci and allure report for you
+- Sit back & Relax !. It will automatically generate the configuration files required for cypress, execute sample tests and create   Gitlab CI and allure report for you
 
 ## Features
 
