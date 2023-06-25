@@ -3,12 +3,17 @@
   "displayName": "cypress-setup",
   "description": "A basic template for initializing a cypress framework",
   "version": "1.0.0",
+  "publisher": "MuditMaheshwari",
   "engines": {
     "vscode": "^1.79.0"
   },
   "categories": [
     "Other"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mudit94/cypress-gitlab-template-vscode"
+},
   "activationEvents": [],
   "main": "./extension.js",
   "contributes": {
