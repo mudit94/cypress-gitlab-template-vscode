@@ -1,5 +1,7 @@
 # Change Log
 
+### 1.1.3
+Added tags to make the extension discoverable
 ### 1.1.2
 - Added the how to use guide
 ### 1.1.1

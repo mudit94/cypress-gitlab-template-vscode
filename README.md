@@ -29,6 +29,8 @@ Calling out known issues can help limit users opening duplicate issues against y
 
 ## Release Notes
 
+### 1.1.3
+Added tags to make the extension discoverable
 ### 1.1.2
 - Created the changelog.md
 - Added the how to use guide
