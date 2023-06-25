@@ -1,4 +1,4 @@
-# cypress-setup README
+# Cypress Gitlab Allure Setup README
 - This is the instruction manual for using the cypress allure gitlab framework generator extension
 
 ## How to Use
