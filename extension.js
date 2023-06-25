@@ -13,19 +13,19 @@ function activate(context) {
 
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "cypress-setup" is now active!');
+	console.log('Congratulations, your extension "cypress-allure-gitlabsetup" is now active!');
 
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with  registerCommand
 	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('cypress-setup.helloWorld', function () {
+	let disposable = vscode.commands.registerCommand('cypress-setup.cypress-allure-gitlabsetup', function () {
 		// The code you place here will be executed every time your command is executed
 		const terminal = vscode.window.createTerminal('Cypress Installation');
 		terminal.show();
 		terminal.sendText('npm init -y');
 		//const fs = require('fs');
 		
-		terminal.sendText('npm install --save-dev cypress cypress-xpath @shelex/cypress-allure-plugin mocha-allure-reporter allure-commandline');
+		terminal.sendText('npm install --save-dev cypress@12.14.0 cypress-xpath @shelex/cypress-allure-plugin mocha-allure-reporter allure-commandline');
 		terminal.sendText('npm install fs');
 
 		 
@@ -34,7 +34,9 @@ function activate(context) {
 			vscode.window.showErrorMessage('No workspace found. Open a workspace with your Cypress project to generate the Cypress configuration files.');
 			return;
 		  }
-		  terminal.sendText("npx cypress run --browser chrome --env allure=true,allureResultsPath=allure-results")
+		terminal.sendText("npx cypress run --browser chrome --env allure=true,allureResultsPath=allure-results");
+		terminal.sendText("allure generate allure-results --clean -o allure-report");
+    
 		//  terminal.sendText(`mkdir -p`+" "+rootPath+`cypress/{support,plugins,integration}`)
 	// 	terminal.sendText('cp cypress.config.js .')
 	// 	terminal.sendText('mkdir -p cypress/support')
@@ -46,28 +48,57 @@ function activate(context) {
 	// // 	// Display a message box to the user
 	
     const gitlabCIContent = `
-image: cypress/base:14.17.0
+image: cypress/browsers:node-18.15.0-chrome-111.0.5563.146-1-ff-111.0.1-edge-111.0.1661.62-1
 
 stages:
   - test
+  - allure
+  - deploy
 
 cypress_tests:
   stage: test
   script:
     - npm i
-    - npx cypress install
     - npx cypress run --env allure=true
   artifacts:
     paths:
       - cypress/screenshots/
       - cypress/videos/
+      - allure-results/
+
+allure_report:
+  stage: allure
+  dependencies:
+    - cypress_tests
+  before_script:
+    - npm i --save-dev allure-commandline 
+  script:
+    - allure generate allure-results --clean -o allure-report
+  artifacts:
+    paths:
+      - allure-report
+
+pages:
+  stage: deploy
+  dependencies:
+    - allure_report
+  script:
+    - cp allure-report public/
+  artifacts:
+    paths:
+      - public/
 `;
-const configFileContent=`
+		
+
+const configFileContent =`
+
 const { defineConfig } = require("cypress");
 const allureWriter = require('@shelex/cypress-allure-plugin/writer');
 module.exports = defineConfig({
 includeShadowDom: true,
 chromeWebSecurity: false,
+screenshotsFolder: "cypress/screenshots",
+videosFolder: "cypress/videos",
 video: false,
 	e2e: {
     experimentalSessionAndOrigin: true,
@@ -140,7 +171,7 @@ import "@shelex/cypress-allure-plugin";
 	//I also encountered a similar problem. You can also solve your problem by doing the following:
 
 //	var content = rec[rt.fields[field]];
-	var gitlabfilePath = path.join(vscode.workspace.rootPath, gitlabCIPath);
+	var gitlabfilePath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, gitlabCIPath);
 	fs.writeFileSync(gitlabfilePath, gitlabCIContent, 'utf8');
 	
 	// var openPath = vscode.Uri.parse("file:///" + filePath); //A request file path
@@ -152,10 +183,10 @@ import "@shelex/cypress-allure-plugin";
 //const supportFilePath = vscode.Uri.file(wsPath + '/cypress/support/e2e.js');
 //vscode.window.showInformationMessage(supportFilePath.toString());
 //wsedit.createFile(supportFilePath, { ignoreIfExists: true });
-	var configFilePath = path.join(vscode.workspace.rootPath, configFile);
-	var supportFileFolder = path.join(vscode.workspace.rootPath, supportIndexPath);
-	var pluginFileFolder = path.join(vscode.workspace.rootPath, pluginsIndexPath);
-	var testFileFolder=path.join(vscode.workspace.rootPath, testFileIndexPath);
+	var configFilePath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, configFile);
+	var supportFileFolder = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, supportIndexPath);
+	var pluginFileFolder = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, pluginsIndexPath);
+	var testFileFolder=path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, testFileIndexPath);
 	//var commandsFolder=path.join(vscode.workspace.rootPath,commandsFileIndexPath);
 	console.log(supportFileFolder);
 	fs.mkdirSync(supportFileFolder,{recursive:true});
@@ -196,8 +227,6 @@ vscode.window.showInformationMessage('Created the required config files');
 	
 
   });
-
-  vscode.window.showInformationMessage('Created the files');
 	context.subscriptions.push(disposable);
 	// exec('pnpm run postinstall', (error, stdout, stderr) => {
 	// 	if (error) {

@@ -14,8 +14,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "cypress-setup.helloWorld",
-        "title": "Hello World"
+        "command": "cypress-setup.cypress-allure-gitlabsetup",
+        "title": "Cypress framework initialization with Gitlab CI and Allure setup"
       }
     ]
   },
@@ -24,7 +24,7 @@
     "compile": "node ./node_modules/vscode/bin/compile",
     "pretest": "pnpm run lint",
     "test": "node ./test/runTest.js",
-    "postinstall": "pnpm install allure-commandline --save-dev"
+    "postinstall": "npm install allure-commandline --save-dev"
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",
