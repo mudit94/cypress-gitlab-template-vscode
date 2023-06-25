@@ -1,6 +1,13 @@
 # cypress-setup README
 - This is the instruction manual for using the cypress allure gitlab framework generator extension
 
+## How to Use
+- Create a VSCode Workspace
+- Open the command pallete (Ctrl+Shift+P)
+- Search for Cypress framework initialization with Gitlab CI and Allure setup
+- Click on it
+- Sit back & Relax !. It will automatically generate the configuration files required for cypress, execute sample tests and create   gitlab ci and allure report for you
+
 ## Features
 
 - Users need to have a VS Code Workspace created in order to be able to make use of this plugin
@@ -9,6 +16,7 @@
 ![Plugin under execution](images/installing.png)
 ![Allure Report](images/allure.png)
 
+ 
 ## Requirements
 
 - Node version above above 18.0.0 must be installed
@@ -21,6 +29,8 @@ Calling out known issues can help limit users opening duplicate issues against y
 
 ## Release Notes
 
+### 1.1.2
+- Created the changelog.md
 ### 1.1.1
 - Fixed broken image in README.md
 ### 1.1.0

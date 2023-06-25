@@ -1,9 +1,19 @@
 # Change Log
 
-All notable changes to the "cypress-setup" extension will be documented in this file.
-
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
-## [Unreleased]
-
+### 1.1.2
+- Added the how to use guide
+### 1.1.1
+- Fixed broken image in README.md
+### 1.1.0
+- Added screenshots for showing the plugin in action in the README.md
+###
+- Updated the README.md
+- Updated the LICENSE 
+### 1.0.3
+- Updated the description of the plugin and the name of the plugin
+### 1.0.2
+- Added logo for the plugin
+### 1.0.1
+- Removed commented code
+### 1.0.0
 - Initial release
