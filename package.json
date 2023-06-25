@@ -4,6 +4,9 @@
   "description": "A basic template for initializing a cypress framework with Gitlab CI and allure reporting configured ",
   "version": "1.0.1",
   "publisher": "MuditMaheshwari",
+  "media": {
+    "icon": "./images/logo.png"
+  },
   "engines": {
     "vscode": "^1.79.0"
   },

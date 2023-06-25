@@ -5,8 +5,8 @@
 
 - Users need to have a VS Code Workspace created in order to be able to make use of this plugin
 
-\!\[Cypress CodeLab Generator]\(images/installing.png\)
-\!\[Allure Report]\(images/allure.png\)
+\!\[Cypress CodeLab Generator]\(./images/installing.png\)
+\!\[Allure Report]\(./images/allure.png\)
 
 ## Requirements
 
