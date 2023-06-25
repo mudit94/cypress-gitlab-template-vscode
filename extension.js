@@ -103,7 +103,6 @@ screenshotsFolder: "cypress/screenshots",
 videosFolder: "cypress/videos",
 video: false,
 	e2e: {
-    experimentalSessionAndOrigin: true,
 		setupNodeEvents(on, config) {
 		allureWriter(on, config);
 		return config;
