@@ -1,6 +1,5 @@
 # cypress-setup README
-
-This is the README for your extension "cypress-setup". After writing up a brief description, we recommend including the following sections.
+- This is the instruction manual for using the cypress allure gitlab framework generator extension
 
 ## Features
 
@@ -9,12 +8,11 @@ This is the README for your extension "cypress-setup". After writing up a brief 
 \!\[Cypress CodeLab Generator]\(images/installing.png\)
 \!\[Allure Report]\(images/allure.png\)
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
+node version above above 15 must be installed
+Java version above 8 must be installed
+npm should be installed 
 
 ## Known Issues
 
@@ -22,7 +20,7 @@ Calling out known issues can help limit users opening duplicate issues against y
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+
 
 ### 1.0.0
 
@@ -33,18 +31,10 @@ This template would help initialize a cypress 12.14.0 project with the required 
 It also helps in generating .gitlab-ci.yml file for running the tests in gitlab ci 
 
 
+### Contribution/Feedback
 
-## Working with Markdown
+Feel free to reach out to me at https://www.linkedin.com/in/maheshwarimudit/
 
-You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
 
 **Enjoy!**
