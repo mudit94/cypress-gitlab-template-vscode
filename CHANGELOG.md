@@ -1,5 +1,8 @@
 # Change Log
 
+### 1.1.5
+- Removed experimentalSession flag
+- Added chrome browser to gitlab ci in test execution command
 ### 1.1.4
 - Changed the display name
 ### 1.1.3

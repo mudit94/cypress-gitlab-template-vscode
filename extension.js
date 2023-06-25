@@ -106,7 +106,6 @@ video: false,
 		setupNodeEvents(on, config) {
 		allureWriter(on, config);
 		return config;
-//	return require("./cypress/plugins/index.js")(on,config);
 		// implement node event listeners here
     },
 	env:{

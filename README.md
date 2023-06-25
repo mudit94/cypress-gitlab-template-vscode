@@ -29,6 +29,9 @@ Calling out known issues can help limit users opening duplicate issues against y
 
 ## Release Notes
 
+### 1.1.5
+- Removed experimentalSession flag
+- Added chrome browser to gitlab ci in test execution command
 ### 1.1.4
 Changed the display name
 
