@@ -2,7 +2,7 @@
   "name": "cypress-setup",
   "displayName": "Cypress-Gitlab-Allure-Framework-Bootstrapper",
   "description": "A basic template for initializing a cypress framework with Gitlab CI and allure reporting configured ",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "keywords": [
     "cypress",
     "test automation",
