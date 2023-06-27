@@ -1,5 +1,8 @@
 # Change Log
 
+### 1.1.7
+- Removed duplicate category
+
 ### 1.1.6
 - Added categories to the extension
 - Updated README

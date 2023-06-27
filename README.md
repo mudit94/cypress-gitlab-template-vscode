@@ -29,6 +29,9 @@ Calling out known issues can help limit users opening duplicate issues against y
 
 ## Release Notes
 
+
+### 1.1.7
+- Removed duplicate category
 ### 1.1.6
 - Updated README
 - Added categories
