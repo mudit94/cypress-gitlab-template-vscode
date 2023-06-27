@@ -22,7 +22,7 @@
 - Node version above above 18.0.0 must be installed
 - Java version above 8 must be installed
 - npm version above 8.x.x must be installed
-
+- VS Code v1.79.2 must be installed
 ## Known Issues
 
 Calling out known issues can help limit users opening duplicate issues against your extension.

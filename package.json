@@ -11,6 +11,7 @@
     "allure",
     "javascript"
   ],
+  "categories":["Testing"],
   "publisher": "MuditMaheshwari",
     "icon": "images/logo.png",
   "engines": {

@@ -1,5 +1,8 @@
 # Change Log
 
+### 1.1.6
+- Added categories to the extension
+- Updated README
 ### 1.1.5
 - Removed experimentalSession flag
 - Added chrome browser to gitlab ci in test execution command
