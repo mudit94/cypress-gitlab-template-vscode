@@ -1,5 +1,9 @@
 # Change Log
 
+
+### 1.1.8
+- Added github actions support
+- Added always tag in artifacts
 ### 1.1.7
 - Removed duplicate category
 

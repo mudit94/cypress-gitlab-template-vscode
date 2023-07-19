@@ -29,7 +29,9 @@ Calling out known issues can help limit users opening duplicate issues against y
 
 ## Release Notes
 
-
+### 1.1.8
+- Added github actions support
+- Added always tag in artifacts
 ### 1.1.7
 - Removed duplicate category
 ### 1.1.6

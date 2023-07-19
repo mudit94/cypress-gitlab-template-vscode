@@ -48,7 +48,41 @@ function activate(context) {
 		terminal.sendText("npx cypress run --browser chrome --env allure=true,allureResultsPath=allure-results");
 		terminal.sendText("npx allure generate allure-results --clean -o allure-report");
     
+	const githubActionsFileContent=`
+	name: Cypress Tests and Allure Report
+
+	on:
+	  push:
+		branches:
+		  - main
 	
+	jobs:
+	  build:
+		runs-on: ubuntu-latest
+	
+		steps:
+		  - name: Checkout repository
+			uses: actions/checkout@v2
+	
+		  - name: Setup Node.js
+			uses: actions/setup-node@v2
+			with:
+			  node-version: 14
+	
+		  - name: Install dependencies
+			run: npm ci
+	
+		  - name: Run Cypress tests
+			run: npm run cy:run
+	
+		  - name: Generate Allure report
+			run: |
+			  npm install -g allure-commandline
+			  mkdir -p allure-results
+			  allure generate allure-results --clean -o allure-report
+			  allure open allure-report
+	
+`;
     const gitlabCIContent = `
 image: cypress/browsers:node-18.15.0-chrome-111.0.5563.146-1-ff-111.0.1-edge-111.0.1661.62-1
 
@@ -77,6 +111,7 @@ allure_report:
   script:
     - allure generate allure-results --clean -o allure-report
   artifacts:
+    when: always
     paths:
       - allure-report
 
@@ -87,6 +122,7 @@ pages:
   script:
     - cp allure-report public/
   artifacts:
+    when: always
     paths:
       - public/
 `;
@@ -113,13 +149,14 @@ video: false,
 	}
   }
 });
-`
+`;
+//const githubCIfile=`cypress.yml`
   const gitlabCIPath = `.gitlab-ci.yml`;
 const supportFileContents=`
 import './commands';
 require("cypress-xpath");
 import "@shelex/cypress-allure-plugin";
-`
+`;
   	const configFile=`cypress.config.js`;
 	const supportFile='e2e.js';
 	const pluginsFile='index.js';
@@ -128,6 +165,8 @@ import "@shelex/cypress-allure-plugin";
 	  const pluginsIndexPath = `cypress/plugins/`;
 	  const supportIndexPath = `cypress/support/`;
 	  const testFileIndexPath=`cypress/e2e/`;
+	  const githubActionsFileIndexPath='.github/workflows/'
+	  const githubActionsFile="cypress.yaml";
 	var pluginsFileContent=`
 	///<reference types="@shelex/cypress-allure-plugin" />
 	const allureWriter = require('@shelex/cypress-allure-plugin/writer');
@@ -135,7 +174,7 @@ import "@shelex/cypress-allure-plugin";
 	module.exports = (on, config) => {
 	  allureWriter(on, config);
 	  return config;
-	};`
+	};`;
 	var testFileContent=`
 	describe('template spec', () => {
 		it('passes', () => {
@@ -144,34 +183,39 @@ import "@shelex/cypress-allure-plugin";
 		it('passes on google', () => {
 			cy.visit('https://google.com')
 		  })
-	  })`;
+	  });`;
 	const wsedit = new vscode.WorkspaceEdit();
 
 	var gitlabfilePath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, gitlabCIPath);
 	fs.writeFileSync(gitlabfilePath, gitlabCIContent, 'utf8');
 	
+	//var githubfilePath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, githubActionsFileIndexPath);
+	
 	var configFilePath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, configFile);
 	var supportFileFolder = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, supportIndexPath);
 	var pluginFileFolder = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, pluginsIndexPath);
 	var testFileFolder=path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, testFileIndexPath);
+	var githubActionsFolder=path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, githubActionsFileIndexPath);
+	
 	console.log(supportFileFolder);
 	fs.mkdirSync(supportFileFolder,{recursive:true});
-	
+	fs.mkdirSync(githubActionsFolder,{recursive:true});
 	fs.mkdirSync(pluginFileFolder,{recursive:true});
 	fs.mkdirSync(testFileFolder,{recursive:true});
+	var githubActionsFilePath=path.join(githubActionsFolder,githubActionsFile);
 	var supportFilePath=path.join(supportFileFolder,supportFile);
 var commandsFilePath=path.join(supportFileFolder,commandsFile);	
 var pluginFilePath=path.join(pluginFileFolder,pluginsFile);
 fs.writeFileSync(pluginFilePath,pluginsFileContent,'utf-8');
 fs.writeFileSync(configFilePath, configFileContent, 'utf8');
   	
-  var testFilePath=path.join(testFileFolder,testFile)
+  var testFilePath=path.join(testFileFolder,testFile);
 	
 	fs.writeFileSync(supportFilePath,supportFileContents, 'utf8');
 		
 	fs.writeFileSync(commandsFilePath,'','utf8');
-	fs.writeFileSync(testFilePath,testFileContent,'utf8') 
-
+	fs.writeFileSync(testFilePath,testFileContent,'utf8');
+	fs.writeFileSync(githubActionsFilePath, githubActionsFileContent, 'utf8');
 
 	
 	vscode.window.showInformationMessage('Creating the required config files');	
