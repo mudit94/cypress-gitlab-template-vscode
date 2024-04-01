@@ -2,7 +2,7 @@
   "name": "cypress-setup",
   "displayName": "Cypress-Gitlab-Allure-Framework-Bootstrapper",
   "description": "A basic template for initializing a cypress framework with Gitlab CI and allure reporting configured ",
-  "version": "1.1.9",
+  "version": "1.2.0",
   "keywords": [
     "cypress",
     "test automation",
@@ -14,7 +14,8 @@
   "categories": [
     "Testing",
     "Quality Assurance",
-    "Gitlab"
+    "Gitlab CI",
+    "Github Actions"
   ],
   "publisher": "MuditMaheshwari",
   "icon": "images/logo.png",
@@ -36,7 +37,7 @@
     ]
   },
   "scripts": {
-    "lint": "eslint .",
+    "lint": "prettier write .",
     "compile": "node ./node_modules/vscode/bin/compile",
     "pretest": "npm run lint",
     "test": "node ./test/runTest.js",

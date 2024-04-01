@@ -1,5 +1,7 @@
 # Change Log
 
+### 1.1.9
+- Added precommit hook support
 
 ### 1.1.8
 - Added github actions support

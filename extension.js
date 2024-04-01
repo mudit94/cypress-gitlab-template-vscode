@@ -38,7 +38,8 @@ function activate(context) {
 		removeFolders(['allure-results','allure-report']);
 		terminal.sendText('npm install --save-dev cypress@12.14.0 cypress-xpath @shelex/cypress-allure-plugin mocha-allure-reporter allure-commandline');
 		terminal.sendText('npm install fs');
-
+		terminal.sendText('npm install husky@latest --save-dev');
+		terminal.sendText('npm install prettier --save-dev')
 		 
 		 const rootPath = vscode.workspace.workspaceFolders[0].uri.fsPath;
 		 if (!rootPath) {
@@ -47,7 +48,11 @@ function activate(context) {
 		  }
 		terminal.sendText("npx cypress run --browser chrome --env allure=true,allureResultsPath=allure-results");
 		terminal.sendText("npx allure generate allure-results --clean -o allure-report");
-    
+		const prettierIgnoreconfigFileContent=`node_modules/`
+		const prettierConfigFileContent=`
+		{
+			"singleQuote": true
+		  }`
 	const githubActionsFileContent=`
 	name: Cypress Tests and Allure Report
 
@@ -151,6 +156,8 @@ video: false,
 });
 `;
 //const githubCIfile=`cypress.yml`
+const prettierConfig='.prettierrc.json';
+const prettierIgnore='.prettierignore';
   const gitlabCIPath = `.gitlab-ci.yml`;
 const supportFileContents=`
 import './commands';
@@ -192,6 +199,8 @@ import "@shelex/cypress-allure-plugin";
 	//var githubfilePath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, githubActionsFileIndexPath);
 	
 	var configFilePath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, configFile);
+	var prettierConfigFilePath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, prettierConfig);
+	var prettierIgnoreconfigFilePath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, prettierIgnore);
 	var supportFileFolder = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, supportIndexPath);
 	var pluginFileFolder = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, pluginsIndexPath);
 	var testFileFolder=path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, testFileIndexPath);
@@ -208,6 +217,8 @@ var commandsFilePath=path.join(supportFileFolder,commandsFile);
 var pluginFilePath=path.join(pluginFileFolder,pluginsFile);
 fs.writeFileSync(pluginFilePath,pluginsFileContent,'utf-8');
 fs.writeFileSync(configFilePath, configFileContent, 'utf8');
+fs.writeFileSync(prettierIgnoreconfigFilePath,prettierIgnoreconfigFileContent,'utf8');
+fs.writeFileSync(prettierConfigFilePath,prettierConfigFileContent,'utf8');
   	
   var testFilePath=path.join(testFileFolder,testFile);
 	
