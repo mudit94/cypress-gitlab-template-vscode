@@ -2,7 +2,7 @@
   "name": "cypress-setup",
   "displayName": "Cypress-Gitlab-Allure-Framework-Bootstrapper",
   "description": "A basic template for initializing a cypress framework with Gitlab CI and allure reporting configured ",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "keywords": [
     "cypress",
     "test automation",
@@ -11,16 +11,20 @@
     "allure",
     "javascript"
   ],
-  "categories":["Testing"],
+  "categories": [
+    "Testing",
+    "Quality Assurance",
+    "Gitlab"
+  ],
   "publisher": "MuditMaheshwari",
-    "icon": "images/logo.png",
+  "icon": "images/logo.png",
   "engines": {
     "vscode": "^1.79.0"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/mudit94/cypress-gitlab-template-vscode"
-},
+  },
   "activationEvents": [],
   "main": "./extension.js",
   "contributes": {
@@ -37,8 +41,8 @@
     "pretest": "pnpm run lint",
     "test": "node ./test/runTest.js",
     "postinstall": "npm install allure-commandline --save-dev",
-    "vsce": "vsce package"
-
+    "vsce": "vsce package",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",
@@ -46,11 +50,13 @@
     "@types/node": "20.2.5",
     "@types/vscode": "^1.79.0",
     "@vscode/test-electron": "^2.3.2",
-    "allure-commandline": "^2.22.4",
+    "allure-commandline": "^2.27.0",
     "eslint": "^8.41.0",
     "glob": "^8.1.0",
+    "husky": "^9.0.11",
     "mocha": "^10.2.0",
     "path": "^0.12.7",
+    "prettier": "^3.2.5",
     "typescript": "^5.1.3"
   }
 }
